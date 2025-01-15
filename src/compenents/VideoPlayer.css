@@ -1,0 +1,13 @@
+.video-player-container {
+    text-align: center;
+    color: white;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  iframe {
+    border: none;
+    margin-top: 20px;
+  }
