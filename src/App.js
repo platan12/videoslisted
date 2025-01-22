@@ -1,10 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import VideoList from './compenents/VideoList';
 import VideoPlayer from './compenents/VideoPlayer';
+import Login from './compenents/Login';
+import { getAuth } from 'firebase/auth';
 import './App.css';
 
-function App() {
+const PrivateRoute = ({ children }) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  return user ? children : <Navigate to="/" />;
+};
+
+const App = () => {
   return (
     <Router>
       <div className="app">
@@ -13,8 +21,16 @@ function App() {
         </header>
         <main className="app-main">
           <Routes>
-            <Route path="/" element={<VideoList />} />
-            <Route path="/video/:id" element={<VideoPlayer />} />
+            <Route path="/" element={<Login />} />
+            <Route
+              path="/videos"
+              element={
+                <PrivateRoute>
+                  <VideoList />
+                </PrivateRoute>
+              }
+            />
+              <Route path="/video/:id" element={<VideoPlayer />} />
           </Routes>
         </main>
       </div>

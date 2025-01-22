@@ -1,29 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import './VideoList.css';
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const fetchVideos = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'videos'));
-        const videoList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setVideos(videoList);
-      } catch (error) {
-        console.error('Error obtenint els vídeos:', error);
+      if (user) {
+        try {
+          const q = query(collection(db, 'videos'), where('usuari', '==', user.uid));
+          const querySnapshot = await getDocs(q);
+          const videoList = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setVideos(videoList);
+        } catch (error) {
+          console.error('Error obtenint els vídeos:', error);
+        }
       }
     };
 
     fetchVideos();
-  }, []);
+  }, [user]);
 
   const handleNavigate = (id) => {
     navigate(`/video/${id}`);
