@@ -1,0 +1,34 @@
+/* Contenidor principal */
+.lists-page-container {
+    text-align: center;
+  }
+  
+  /* Títol de la llista */
+  .lists-page-title {
+    color: #D9D9D9; /* Text blanc */
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .lists-button-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .list-button {
+    background-color: #E70467;
+    color: #D9D9D9;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .list-button:hover {
+    background-color: darkred;
+  }

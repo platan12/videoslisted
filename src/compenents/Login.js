@@ -14,7 +14,7 @@ const Login = () => {
     const auth = getAuth();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/videos'); // Navegar a la pàgina de vídeos
+      navigate('/lists'); // Navegar a la pàgina de vídeos
     } catch (error) {
       setError('Error iniciant sessió. Revisa les credencials.');
     }

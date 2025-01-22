@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from '../firebaseConfig';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 import './VideoList.css';
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
-  const [user, setUser] = useState(null);
+  const { listName } = useParams(); // Obtenim el nom de la llista de la ruta
+  const auth = getAuth();
+  const user = auth.currentUser;
   const navigate = useNavigate();
 
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
     const fetchVideos = async () => {
+      
       if (user) {
         try {
-          const q = query(collection(db, 'videos'), where('usuari', '==', user.uid));
+          // Consulta a Firebase filtrant per llista i usuari
+          const q = query(
+            collection(db, 'videos'),
+           
+            where('llista', '==', listName),
+            where('usuari', '==', user.uid)
+          );
           const querySnapshot = await getDocs(q);
           const videoList = querySnapshot.docs.map(doc => ({
             id: doc.id,
@@ -37,7 +37,7 @@ const VideoList = () => {
     };
 
     fetchVideos();
-  }, [user]);
+  }, [listName, user]);
 
   const handleNavigate = (id) => {
     navigate(`/video/${id}`);
@@ -45,7 +45,7 @@ const VideoList = () => {
 
   return (
     <div className="video-list-container">
-      <h2 className="video-list-title">Llista de Vídeos</h2>
+      <h2 className="video-list-title">{`Vídeos de la llista: ${listName}`}</h2>
       <div className="video-button-list">
         {videos.map(video => (
           <button

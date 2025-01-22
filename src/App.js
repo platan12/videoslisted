@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import VideoList from './compenents/VideoList';
 import VideoPlayer from './compenents/VideoPlayer';
+import ListsPage from './compenents/ListsPage';
 import Login from './compenents/Login';
 import { getAuth } from 'firebase/auth';
 import './App.css';
@@ -23,7 +24,15 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route
-              path="/videos"
+              path="/lists"
+              element={
+                <PrivateRoute>
+                  <ListsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/videos/:listName"
               element={
                 <PrivateRoute>
                   <VideoList />
