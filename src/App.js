@@ -4,6 +4,7 @@ import VideoList from './compenents/VideoList';
 import VideoPlayer from './compenents/VideoPlayer';
 import ListsPage from './compenents/ListsPage';
 import Login from './compenents/Login';
+import AddVideo from './compenents/AddVideo';
 import { getAuth } from 'firebase/auth';
 import './App.css';
 
@@ -40,6 +41,7 @@ const App = () => {
               }
             />
               <Route path="/video/:id" element={<VideoPlayer />} />
+              <Route path="/add-video" element={<AddVideo />} />
           </Routes>
         </main>
       </div>
