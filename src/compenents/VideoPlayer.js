@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { useParams, useNavigate } from 'react-router-dom';
+import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import './VideoPlayer.css';
 
 const VideoPlayer = () => {
   const { id } = useParams(); // ID del vídeo
+  const navigate = useNavigate(); // Per navegar entre pàgines
   const [video, setVideo] = useState(null);
 
   useEffect(() => {
@@ -27,6 +28,16 @@ const VideoPlayer = () => {
     fetchVideo();
   }, [id]);
 
+  const handleDelete = async () => {
+    try {
+      await deleteDoc(doc(db, 'videos', id));
+      alert('Vídeo eliminat correctament!');
+      navigate(-1); // Torna a la pàgina anterior
+    } catch (error) {
+      console.error('Error eliminant el vídeo:', error);
+    }
+  };
+
   if (!video) {
     return <p>Carregant vídeo...</p>;
   }
@@ -43,6 +54,10 @@ const VideoPlayer = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
+      <div>
+      <button className="delete-button" onClick={handleDelete}>Esborrar Vídeo</button>
+      </div>
+      
     </div>
   );
 };
