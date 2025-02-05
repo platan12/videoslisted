@@ -54,6 +54,9 @@ const ListsPage = () => {
   return (
     <div className="lists-page-container">
       <h2 className="lists-page-title">Les teves llistes</h2>
+      <button className="add-video-button" onClick={() => navigate('/add-video')}>
+        ➕ Afegir Vídeo
+      </button>
       <div className="lists-button-list">
         {lists.map((listName, index) => (
           <button

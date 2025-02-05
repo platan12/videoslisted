@@ -47,9 +47,6 @@ const VideoList = () => {
     <div className="video-list-container">
       <h2 className="video-list-title">{`Vídeos de la llista: ${listName}`}</h2>
 
-      <button className="add-video-button" onClick={() => navigate('/add-video')}>
-        ➕ Afegir Vídeo
-      </button>
       <div className="video-button-list">
         {videos.map(video => (
           <button
