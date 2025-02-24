@@ -4,6 +4,7 @@ import VideoList from './compenents/VideoList';
 import VideoPlayer from './compenents/VideoPlayer';
 import ListsPage from './compenents/ListsPage';
 import Login from './compenents/Login';
+import Register from './compenents/Register';
 import AddVideo from './compenents/AddVideo';
 import { getAuth } from 'firebase/auth';
 import './App.css';
@@ -24,6 +25,7 @@ const App = () => {
         <main className="app-main">
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route
               path="/lists"
               element={

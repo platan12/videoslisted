@@ -33,6 +33,10 @@ button:hover {
   background-color: #760033;
 }
 
+.register-button {
+  margin-top: 10px;
+}
+
 .error-message {
   color: red;
 }

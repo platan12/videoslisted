@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './Register.css';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const auth = getAuth();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/lists'); // Navegar a la pàgina de vídeos
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/'); // Tornar a la pàgina de login
     } catch (error) {
-      setError('Error iniciant sessió. Revisa les credencials.');
+      setError('Error al registrar-se. Revisa les dades introduïdes.');
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Iniciar Sessió</h2>
+    <div className="register-container">
+      <h2>Registrar-se</h2>
       {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           placeholder="Correu electrònic"
@@ -37,13 +37,13 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar Sessió</button>
+        <button type="submit">Crear Compte</button>
       </form>
-      <button onClick={() => navigate('/register')} className="register-button">
-        Registrar-se
+      <button onClick={() => navigate('/')} className="back-button">
+        Tornar a Iniciar Sessió
       </button>
     </div>
   );
 };
 
-export default Login;
+export default Register;
