@@ -61,6 +61,9 @@ const AddVideo = () => {
         />
         <button type="submit">Afegir Vídeo</button>
       </form>
+      <button onClick={() => navigate(-1)} className="back-button">
+        Tornar Enrere
+      </button>
     </div>
   );
 };

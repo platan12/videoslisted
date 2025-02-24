@@ -57,6 +57,9 @@ const VideoList = () => {
             {video.title}
           </button>
         ))}
+        <button onClick={() => navigate(-1)} className="back-button">
+        Tornar Enrere
+      </button>
       </div>
     </div>
   );

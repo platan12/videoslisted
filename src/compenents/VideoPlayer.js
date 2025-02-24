@@ -56,6 +56,9 @@ const VideoPlayer = () => {
       ></iframe>
       <div>
       <button className="delete-button" onClick={handleDelete}>Esborrar Vídeo</button>
+      <button onClick={() => navigate(-1)} className="back-button1">
+        Tornar Enrere
+      </button>
       </div>
       
     </div>

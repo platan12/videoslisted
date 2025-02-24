@@ -67,6 +67,9 @@ const ListsPage = () => {
             {listName}
           </button>
         ))}
+        <button onClick={() => navigate('/')} className="back-button">
+        Tornar a Pagina principal
+      </button>
       </div>
     </div>
   );
